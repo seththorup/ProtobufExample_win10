@@ -18,4 +18,20 @@
     <None Include="Nav.proto" />
     <None Include="Tx_channel.proto" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Nav.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tx_channel.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Nav.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tx_channel.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
