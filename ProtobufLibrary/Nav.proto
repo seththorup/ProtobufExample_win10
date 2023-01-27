@@ -1,0 +1,77 @@
+syntax = "proto3";
+//option cc_enable_arenas = true;
+package CNES.messages;
+//option java_package = "com.l3.cnes.messages.proto";
+//option go_package = "bitbucket.csw.l-3com.com/proto/protobuf/cnes/messages;cnesMessages";
+
+//import "msg/base/Defines.proto";
+//import "msg/base/Header.proto";
+
+message Nav {
+
+  // A Node ID can have zero to n relevant blockages: a repeated, nested
+  // BlockedNode message contains the relevant, blocked rx node ID,
+  // and the type of material or blockage.
+  message BlockedNode {
+    uint32 blkd_rx_node_id = 1;
+    //msg.base.Defines.Blockage_type by_blockage_type = 2;
+  }
+
+  // This messages uses Message_header for it's indexes by using
+  // -- node_id -> The Node ID
+  //msg.base.Header msg_hdr = 1;
+
+  // Navigation time is in nano seconds and can be
+  // retrieved by calling CNES_time::nav_time_int()
+  int64  nav_time_ns = 2;
+  double latitude_deg = 3;
+  double longitude_deg = 4;
+  double altitude_m = 5;
+  double heading_deg = 6;
+  double pitch_deg = 7;
+  double roll_deg = 8;
+
+  // Tells the GUI the picture to draw for this node
+  uint32  gui_node_icon = 9;
+
+  // If this piece of nav data came from our estimator (true) or a nav source
+  // like MAK or GPS (false)
+  bool nav_estimated = 10;
+
+  // legacy
+  uint32 entity_id = 11;
+
+  // In seconds to make it easier for SQL queries
+  double  nav_time_sec = 12;
+  //msg.base.Defines.Yes_no pause_nav = 13;
+
+  //include files necessary for nav
+  repeated string navigation_files = 14;
+
+  // Holds 0-n blockage values detailing Node ID that 'is_blocked', 'by_type'
+  repeated BlockedNode blockage = 15;
+
+  // Surface-relative terrain values are necessary for accurate calculation of Crane path loss
+  // atmospherics attenuation.
+  double surface_altitude_m = 16;
+
+  // node velocity along lat/lon/alt lines in m/s
+  double lat_velocity_m = 17;
+  double lon_velocity_m = 18;
+  double alt_velocity_m = 19;
+
+  // node acceleration along lat/lon/alt lines in m/s^2
+  double lat_acceleration_m = 20;
+  double lon_acceleration_m = 21;
+  double alt_acceleration_m = 22;
+
+  // node angular velocity in deg/s
+  double heading_angular_velocity_deg = 23;
+  double pitch_angular_velocity_deg = 24;
+  double roll_angular_velocity_deg = 25;
+
+  // node angular acceleration in deg/s^2
+  double heading_angular_acceleration_deg = 26;
+  double pitch_angular_acceleration_deg = 27;
+  double roll_angular_acceleration_deg = 28;
+}
